@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+var killCMT = function() {
+    var r = confirm('iFrame inactivity timeout reached.  Killing the ILX CMT session!');
+    if (r == true) {resetTimer();}
+    if (r == false) {closeWindow();}
+}
+var resetTimer = function() {
+  clearTimeout(ilxTimer);
+  ilxTimer = setTimeout(killCMT, (1000 * 10));
+}
+var closeWindow = function() {
+    alert('Killed the ILX CMT session!  Will close this window.');
+    window.close();
+}
+window.onbeforeunload = function() {
+    alert('Window close button clicked.  Killing the ILX CMT session!');
+    return "Please click 'Stay on this Page' to keep your session alive.  However your ILX iFrane session is dead.";
+};
+var ilxTimer = setTimeout(killCMT, (1000 * 10));
+</script>
+</head>
+
+<body>
+   <div>
+        <button type="button" onclick="resetTimer();" id="Send">Send</button>
+        <button type="button" onclick="closeWindow(); return false;">Cancel</button>
+        <br>
+   </div>
+   <div style="text-align:center">
+        <iframe src="https://www.msnbc.com"  height="750px" width="95%"/>
+    </div>
+</body>
+</html>
